@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content = "IE=edge">
+    <meta name = "viewport" content = "width=device-width, initial-scale= 1.0">
+    <title>Personal Portfolio Website</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/88be4523e7.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="bgAnimation" id="bgAnimation">
+    <div class="backgroundAmim"></div>
+</div>
+
+<div id="header">
+    <div class = "container">
+        <nav>
+            <img src = "images/logo.png" class = "logo">
+            <ul id="sidemenu">
+                <li><a href = "#header">Home</a></li>
+                <li><a href = "#about">About</a></li>
+                <li><a href = "#contact">Contact</a></li>
+                <i class = "fas fa-times" onclick ="closemenu()"></i>
+            </ul>
+            <i class="fas fa-bars" onclick ="openmenu()"></i>
+        </nav>
+        <div class="header-text">
+            <p>AI Researcher and Computer Science Student</p>
+            <h1>Hi, I'm <span>Hagop</span> Alajajian<br> from metro Detroit, Michigan.</h1>
+        </div>
+    </div>
+</div>
+
+<!------------ABOUT---------------------->
+
+
+<div id="about">
+    <div class = "container">
+        <div class="row">
+            <div class="about-col-1">
+                <img src="images/user.png">
+            </div>
+            
+            
+            <!------------OverView---------------------->
+
+            <div class="about-col-2">
+                <h1 class = "sub-title">About Me</h1>
+                <p>I'm a Princeton student studying computer science.</p>
+                <div class="tab-titles">
+                    <p class = "tab-links active-link" onclick="opentab('skills')">Skills</p>
+                    <p class = "tab-links" onclick="opentab('experience')">Experience</p>
+                    <p class = "tab-links" onclick="opentab('education')">Education</p>
+                </div>
+                
+                <!-----Skills---->
+                <div class="tab-contents active-tab" id = "skills">
+                    <ul>
+                        <li><span>UI/UX</span><br>Designing Web/App Interfaces</li>
+                        <li><span>Web Development</span><br>Web App Development</li>
+                        <li><span>AI Research</span><br>Investigating the applications and theory behind AI</li>
+                        <li><span>Strategy Analysis</span><br>Gather, review, and test data to create business action plans</li>
+                    </ul>
+                </div>
+
+                <!--Experience--->
+                <div class="tab-contents" id = "experience">
+                    <ul>
+                        <li><span>2023</span><br>AI Researcher and Software Developer at Bancolombia, the largest bank in Colombia</li>
+                        <li><span>2023</span><br>AI Researcher at startup Lowtech AI</li>
+                        <li><span>2022-2023</span><br>Co-founder and CTO of VC-funded startup DestressifyAI</li>
+                        <li><span>2022-2023</span><br>Princetonian Web Developer</li>
+                        <li><span>2022-2023</span><br>Sales Associate and Market Analyst at Fancy Jewelers</li>
+                    </ul>
+                </div>
+
+                <!---Education--->
+                <div class="tab-contents" id = "education">
+                    <ul>
+                        <li><span>2022-2026</span><br>BSE from Princeton University</li>
+                        <li><span>2019-2022</span><br>Lawrence Technological University</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!------contact-------->
+<div id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="contact-left">
+                <h1 class = "sub-title"> Contact Me</h1>
+                <p>hagop@princeton.edu</p>
+                <p>248-308-9509</p>
+                <div class="social-icons">
+                    <a href = "https://www.instagram.com/hagop._.a/"><i class="fa-brands fa-square-instagram"></i></a>
+                    <a href = ""><i class="fa-brands fa-square-github"></i></a>
+                </div>
+                <a href="images/resume.pdf" download class="btn btn1">Download Resume</a>
+            </div>
+            <div class="contact-right">
+                <form name = "submit-to-google-sheet">
+                    <input type="text" name="Name" placeholder = "Your Name" required>
+                    <input type="email" name="Email" placeholder = "Your Email" required>
+                    <textarea name="Message" rows="6" placeholder = "Your Message" required></textarea>
+                    <button type="submit" class="btn btn1">Submit</button>
+                </form>
+                <span id="msg"> </span>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>Copyright © Hagop Alajajian.</p>
+    </div>
+</div>
+
+
+
+<!------Javascript-------->
+
+<script>
+    var tablinks = document.getElementsByClassName("tab-links");
+    var tabcontents = document.getElementsByClassName("tab-contents");
+
+    function opentab(tab_name) {
+        for(tablink of tablinks) {
+            tablink.classList.remove("active-link");
+        }
+        for(tabcontent of tabcontents) {
+            tabcontent.classList.remove("active-tab");
+        }
+        
+        event.currentTarget.classList.add("active-link");
+        document.getElementById(tab_name).classList.add("active-tab");
+    }
+</script>
+
+
+
+<script>
+    var sidemeu = document.getElementById("sidemenu");
+
+    function openmenu() {
+        sidemeu.style.right = "0";
+    }
+
+    function closemenu(sd){
+        sidemeu.style.right = "-200px";
+    }
+</script>
+
+
+<script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzFDT5FfcIvq9jXGssUueXVb1ripa72WwPqfDg3c8shT-n5iTPGCkF5uJM1g0IACDtv/exec'
+    const form = document.forms['submit-to-google-sheet']
+    const msg = document.getElementById("msg")
+
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => {
+            msg.innerHTML = "Thank you for submitting."
+            setTimeout(function(){
+                msg.innerHTML = ""
+            }, 5000)
+            form.reset()
+        })
+        .catch(error => console.error('Error!', error.message))
+    })
+  </script>
+
+<script> 
+    
+    const bgAnimation = document.getElementById('bgAnimation');
+
+    const numberOfColorBoxes = 400;
+    
+    for (let i = 0; i < numberOfColorBoxes; i++) {
+        const colorBox = document.createElement('div');
+        colorBox.classList.add('colorBox');
+        bgAnimation.append(colorBox)
+    }
+</script>
+
+
+</body>
+</html> 
